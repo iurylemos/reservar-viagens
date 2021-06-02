@@ -2,10 +2,10 @@ import React, { Dispatch } from 'react';
 import useSWR from "swr";
 import { useDispatch } from 'react-redux';
 import { Box, BoxTitle, CapaImage, FlightLock, Item, Button, WrapperIcon } from './styled';
-import { addReserve, ReducerAdd } from '../../store/modules/reserve/actions';
+import { addReserveRequest, ReducerAddOrRemove } from '../../store/modules/reserve/actions';
 
 export interface Viagem {
-    id: string;
+    id: number;
     title: string;
     status: boolean;
     image: string;
@@ -24,7 +24,7 @@ export function useFetch<Data = any, Error = any>(url: string) {
 
 const Home: React.FC = () => {
 
-    const dispatch = useDispatch<Dispatch<ReducerAdd>>();
+    const dispatch = useDispatch<Dispatch<ReducerAddOrRemove>>();
 
     const { data } = useFetch<Viagem[]>("http://localhost:3333/trips");
 
@@ -33,7 +33,8 @@ const Home: React.FC = () => {
     }
 
     function handleAdd(trip: Viagem): void {
-        dispatch(addReserve(trip));
+        console.log("TRIP?", trip)
+        dispatch(addReserveRequest(trip.id));
     }
 
     return (

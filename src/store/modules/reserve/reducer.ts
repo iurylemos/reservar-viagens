@@ -4,7 +4,7 @@ import produce from 'immer';
 function reserve(state: Array<any> = [], action: AnyAction): Array<any> {
     // console.log('Chegou?', state)
     switch (action.type) {
-        case 'ADD_RESERVE':
+        case 'ADD_RESERVE_SUCCESS':
             return produce(state, (draft: any[]) => {
                 const tripIndex = draft.findIndex(trip => trip.id === action.trip.id);
 

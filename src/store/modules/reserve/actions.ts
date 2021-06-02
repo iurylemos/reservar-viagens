@@ -1,13 +1,6 @@
-import { Viagem } from "../../../pages/Home";
-
-export interface ReducerRemove {
+export interface ReducerAddOrRemove {
     type: string;
     tripId: number;
-}
-
-export interface ReducerAdd {
-    type: string;
-    trip: Viagem;
 }
 
 export interface ReducerUpdate {
@@ -16,14 +9,21 @@ export interface ReducerUpdate {
     amount: number;
 }
 
-export function addReserve(trip: Viagem): ReducerAdd {
+export function addReserveRequest(id: number): ReducerAddOrRemove {
     return {
-        type: 'ADD_RESERVE',
+        type: 'ADD_RESERVE_REQUEST',
+        tripId: id,
+    }
+}
+
+export function addReserveSuccess(trip: any) {
+    return {
+        type: 'ADD_RESERVE_SUCCESS',
         trip: trip,
     }
 }
 
-export function removeReserve(id: number): ReducerRemove {
+export function removeReserve(id: number): ReducerAddOrRemove {
     return {
         type: 'REMOVE_RESERVE',
         tripId: id,
