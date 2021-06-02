@@ -1,11 +1,5 @@
-import { Viagem } from "../../../pages/Home";
 import { AnyAction } from 'redux';
 import produce from 'immer';
-
-export interface ReducerReserve {
-    type: string;
-    trip: Viagem;
-}
 
 function reserve(state: Array<any> = [], action: AnyAction): Array<any> {
     // console.log('Chegou?', state)
@@ -24,10 +18,14 @@ function reserve(state: Array<any> = [], action: AnyAction): Array<any> {
                 }
 
             });
-        // return [...state, {
-        //     ...action.trip,
-        //     amount: 1,
-        // }];
+        case 'REMOVE_RESERVE':
+            return produce(state, (draft: any[]) => {
+                const tripIndex = draft.findIndex(trip => trip.id === action.tripId);
+
+                if (tripIndex >= 0) {
+                    draft.splice(tripIndex, 1);
+                }
+            })
         default:
             return state;
     }

@@ -1,5 +1,6 @@
-import React from 'react';
-import { DefaultRootState, useSelector } from 'react-redux';
+import React, { Dispatch } from 'react';
+import { DefaultRootState, useSelector, useDispatch } from 'react-redux';
+import { ReducerRemove, removeReserve } from '../../store/modules/reserve/actions';
 import { DeleteIcon, Title, CardReservas, ImagemCard, ButtonCard, FooterButton } from './styled';
 
 interface Reserva {
@@ -10,9 +11,16 @@ interface Reserva {
     status: string;
 }
 
+
 const Reservas: React.FC = () => {
 
+    const dispatch = useDispatch<Dispatch<ReducerRemove>>();
+
     const reserves = useSelector<Reserva[], Reserva[]>((state: DefaultRootState | any) => state.reserve);
+
+    function handleRemove(id: number): void {
+        dispatch(removeReserve(id));
+    }
 
     return (
         <div>
@@ -23,7 +31,7 @@ const Reservas: React.FC = () => {
                         <ImagemCard src={reserva.image} alt={reserva.title} />
                         <strong>{reserva.title}</strong>
                         <span>Quantildade: {reserva.amount}</span>
-                        <ButtonCard type="button" onClick={() => { }}>
+                        <ButtonCard type="button" onClick={() => handleRemove(reserva.id)}>
                             <DeleteIcon />
                         </ButtonCard>
                     </CardReservas>
