@@ -7,7 +7,7 @@ type Params = {
     tripId: number
 }
 
-export interface TripSaga {
+interface TripSaga {
     id: number;
     title: string;
     status: boolean;
@@ -19,6 +19,20 @@ export interface TripSaga {
 function* addToReserve({ tripId }: Params) {
     try {
         const tripExist: TripSaga = yield select(state => state.reserve.find((trip: TripSaga) => trip.id === tripId))
+
+        const myStock: AxiosResponse = yield call(api.get, `/stock/${tripId}`);
+
+        const stockAmount = myStock.data.amount;
+
+        const currentStock = tripExist ? tripExist.amount : 0;
+
+        const amount = currentStock + 1;
+
+        if (amount > stockAmount) {
+            alert('Quantidade máxima antigida');
+            return;
+        }
+
         if (tripExist) {
             const amount = tripExist.amount + 1;
             yield put(updateReserve(tripExist.id, amount));
