@@ -11,5 +11,6 @@ Projeto criado para simulação de um usuário que deseja viajar, e está fazend
 - [ ] Redux Saga
 - [x] SWR
 - [x] Styled Icons
+- [x] Immer
 
 

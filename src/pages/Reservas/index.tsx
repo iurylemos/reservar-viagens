@@ -1,19 +1,34 @@
 import React from 'react';
+import { DefaultRootState, useSelector } from 'react-redux';
 import { DeleteIcon, Title, CardReservas, ImagemCard, ButtonCard, FooterButton } from './styled';
+
+interface Reserva {
+    id: number;
+    title: string;
+    amount: number;
+    image: string;
+    status: string;
+}
 
 const Reservas: React.FC = () => {
 
+    const reserves = useSelector<Reserva[], Reserva[]>((state: DefaultRootState | any) => state.reserve);
+
     return (
         <div>
-            <Title>Você solicitou 1 reserva</Title>
-            <CardReservas>
-                <ImagemCard src="https://sujeitoprogramador.com/wp-content/uploads/2019/12/maceio.jpg" alt="Macio" />
-                <strong>Viagem Maceio 7 Dias</strong>
-                <span>Quantildade: 2</span>
-                <ButtonCard type="button" onClick={() => { }}>
-                    <DeleteIcon />
-                </ButtonCard>
-            </CardReservas>
+            <Title>Você solicitou {reserves.length} reservas</Title>
+            {
+                reserves.map((reserva: Reserva, idx: number) => (
+                    <CardReservas key={idx + reserva.id}>
+                        <ImagemCard src={reserva.image} alt={reserva.title} />
+                        <strong>{reserva.title}</strong>
+                        <span>Quantildade: {reserva.amount}</span>
+                        <ButtonCard type="button" onClick={() => { }}>
+                            <DeleteIcon />
+                        </ButtonCard>
+                    </CardReservas>
+                ))
+            }
 
             <footer>
                 <FooterButton type="button">Solicitar Reservas</FooterButton>
