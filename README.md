@@ -9,7 +9,7 @@ Projeto criado para simulação de um usuário que deseja viajar, e está fazend
 - [ ] Jest
 - [x] Styled Components
 - [ ] Redux Saga
-- [ ] SWR
-- [ ] Firebase
+- [x] SWR
+- [x] Styled Icons
 
 
