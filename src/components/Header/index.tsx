@@ -1,9 +1,12 @@
 import React from 'react';
+import { DefaultRootState, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { LinkReservas, HeaderContainer, ImgHeader, DivReserva, StrongReserva, SpanReserva } from './styled';
 import logo from '../../assets/logo.svg';
 
 const Header: React.FC = () => {
+
+    const reserveSize = useSelector((state: DefaultRootState | any) => state.reserve.length);
 
     return (
         <HeaderContainer>
@@ -13,7 +16,7 @@ const Header: React.FC = () => {
             <LinkReservas to="/reservas">
                 <DivReserva>
                     <StrongReserva>Minhas reservas</StrongReserva>
-                    <SpanReserva>0 reservas</SpanReserva>
+                    <SpanReserva>{reserveSize} reservas</SpanReserva>
                 </DivReserva>
             </LinkReservas>
         </HeaderContainer>

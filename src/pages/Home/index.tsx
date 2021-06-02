@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import useSWR from "swr";
+import { useDispatch } from 'react-redux';
 import { Box, BoxTitle, CapaImage, FlightLock, Item, Button, WrapperIcon } from './styled';
+import { ReducerReserve } from '../../store/modules/reserve/reducer';
 
-interface Viagem {
+export interface Viagem {
     id: string;
     title: string;
     status: boolean;
@@ -22,10 +24,19 @@ export function useFetch<Data = any, Error = any>(url: string) {
 
 const Home: React.FC = () => {
 
+    const dispatch = useDispatch<Dispatch<ReducerReserve>>();
+
     const { data } = useFetch<Viagem[]>("http://localhost:3333/trips");
 
     if (!data) {
         return <p>Carregando...</p>;
+    }
+
+    function handleAdd(trip: Viagem): void {
+        dispatch({
+            type: 'ADD_RESERVE',
+            trip: trip,
+        });
     }
 
     return (
@@ -37,7 +48,7 @@ const Home: React.FC = () => {
                             <CapaImage src={trip.image} alt={trip.title} />
                             <BoxTitle>{trip.title}</BoxTitle>
                             <span>Status: {trip.status ? "Disponível" : "Indisponível"}</span>
-                            <Button type='button' onClick={() => { }}>
+                            <Button type='button' onClick={() => handleAdd(trip)}>
                                 <WrapperIcon>
                                     <FlightLock />
                                 </WrapperIcon>

@@ -4,7 +4,7 @@ Projeto criado para simulação de um usuário que deseja viajar, e está fazend
 
 ## Técnologias utilizadas:
 
-- [ ] Redux
+- [x] Redux
 - [x] Typescript
 - [ ] Jest
 - [x] Styled Components
