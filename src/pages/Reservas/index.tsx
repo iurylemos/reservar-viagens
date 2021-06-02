@@ -1,7 +1,7 @@
 import React, { Dispatch } from 'react';
 import { DefaultRootState, useSelector, useDispatch } from 'react-redux';
-import { ReducerRemove, removeReserve } from '../../store/modules/reserve/actions';
-import { DeleteIcon, Title, CardReservas, ImagemCard, ButtonCard, FooterButton } from './styled';
+import { ReducerRemove, removeReserve, updateReserve } from '../../store/modules/reserve/actions';
+import { DeleteIcon, Title, CardReservas, ImagemCard, ButtonCard, FooterButton, AddIcon, RemoveIcon, ButtonIcon, AmountButtons, InputAmount } from './styled';
 
 interface Reserva {
     id: number;
@@ -22,6 +22,14 @@ const Reservas: React.FC = () => {
         dispatch(removeReserve(id));
     }
 
+    function decrementAmount(trip: Reserva): void {
+        dispatch(updateReserve(trip.id, trip.amount - 1));
+    }
+
+    function incrementAmount(trip: Reserva): void {
+        dispatch(updateReserve(trip.id, trip.amount + 1));
+    }
+
     return (
         <div>
             <Title>Você solicitou {reserves.length} reservas</Title>
@@ -30,7 +38,15 @@ const Reservas: React.FC = () => {
                     <CardReservas key={idx + reserva.id}>
                         <ImagemCard src={reserva.image} alt={reserva.title} />
                         <strong>{reserva.title}</strong>
-                        <span>Quantildade: {reserva.amount}</span>
+                        <AmountButtons>
+                            <ButtonIcon type='button' onClick={() => decrementAmount(reserva)}>
+                                <RemoveIcon />
+                            </ButtonIcon>
+                            <InputAmount type="text" readOnly value={reserva.amount} />
+                            <ButtonIcon type='button' onClick={() => incrementAmount(reserva)}>
+                                <AddIcon />
+                            </ButtonIcon>
+                        </AmountButtons>
                         <ButtonCard type="button" onClick={() => handleRemove(reserva.id)}>
                             <DeleteIcon />
                         </ButtonCard>

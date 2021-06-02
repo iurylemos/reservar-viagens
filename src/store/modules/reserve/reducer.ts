@@ -26,6 +26,21 @@ function reserve(state: Array<any> = [], action: AnyAction): Array<any> {
                     draft.splice(tripIndex, 1);
                 }
             })
+
+        case 'UPDATE_RESERVE': {
+
+            if (action.amount <= 0) {
+                return state;
+            }
+
+            return produce(state, (draft: any[]) => {
+                const tripIndex = draft.findIndex(trip => trip.id === action.tripId);
+
+                if (tripIndex >= 0) {
+                    draft[tripIndex].amount = Number(action.amount);
+                }
+            })
+        }
         default:
             return state;
     }
