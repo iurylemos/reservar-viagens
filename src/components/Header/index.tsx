@@ -1,11 +1,22 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { LinkReservas, HeaderContainer, ImgHeader, DivReserva, StrongReserva, SpanReserva } from './styled';
+import logo from '../../assets/logo.svg';
 
 const Header: React.FC = () => {
 
     return (
-        <header>
-            <h1>Header Name</h1>
-        </header>
+        <HeaderContainer>
+            <Link to="">
+                <ImgHeader src={logo} alt="Logo Projeto" />
+            </Link>
+            <LinkReservas to="/reservas">
+                <DivReserva>
+                    <StrongReserva>Minhas reservas</StrongReserva>
+                    <SpanReserva>0 reservas</SpanReserva>
+                </DivReserva>
+            </LinkReservas>
+        </HeaderContainer>
     );
 }
 

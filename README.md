@@ -7,7 +7,7 @@ Projeto criado para simulação de um usuário que deseja viajar, e está fazend
 - [ ] Redux
 - [x] Typescript
 - [ ] Jest
-- [ ] Styled Components
+- [x] Styled Components
 - [ ] Redux Saga
 - [ ] SWR
 - [ ] Firebase
