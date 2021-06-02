@@ -1,6 +1,6 @@
 import React, { Dispatch } from 'react';
 import { DefaultRootState, useSelector, useDispatch } from 'react-redux';
-import { ReducerAddOrRemove, removeReserve, updateReserve } from '../../store/modules/reserve/actions';
+import { ReducerAddOrRemove, removeReserve, updateReserveRequest } from '../../store/modules/reserve/actions';
 import { DeleteIcon, Title, CardReservas, ImagemCard, ButtonCard, FooterButton, AddIcon, RemoveIcon, ButtonIcon, AmountButtons, InputAmount } from './styled';
 
 interface Reserva {
@@ -23,11 +23,11 @@ const Reservas: React.FC = () => {
     }
 
     function decrementAmount(trip: Reserva): void {
-        dispatch(updateReserve(trip.id, trip.amount - 1));
+        dispatch(updateReserveRequest(trip.id, trip.amount - 1));
     }
 
     function incrementAmount(trip: Reserva): void {
-        dispatch(updateReserve(trip.id, trip.amount + 1));
+        dispatch(updateReserveRequest(trip.id, trip.amount + 1));
     }
 
     return (

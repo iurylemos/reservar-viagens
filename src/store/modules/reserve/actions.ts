@@ -30,9 +30,17 @@ export function removeReserve(id: number): ReducerAddOrRemove {
     }
 }
 
-export function updateReserve(id: number, amount: number): ReducerUpdate {
+export function updateReserveRequest(id: number, amount: number): ReducerUpdate {
     return {
-        type: 'UPDATE_RESERVE',
+        type: 'UPDATE_RESERVE_REQUEST',
+        tripId: id,
+        amount: amount,
+    }
+
+}
+export function updateReserveSuccess(id: number, amount: number): ReducerUpdate {
+    return {
+        type: 'UPDATE_RESERVE_SUCCESS',
         tripId: id,
         amount: amount,
     }

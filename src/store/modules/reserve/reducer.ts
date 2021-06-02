@@ -17,11 +17,7 @@ function reserve(state: Array<any> = [], action: AnyAction): Array<any> {
                 }
             })
 
-        case 'UPDATE_RESERVE': {
-
-            if (action.amount <= 0) {
-                return state;
-            }
+        case 'UPDATE_RESERVE_SUCCESS': {
 
             return produce(state, (draft: any[]) => {
                 const tripIndex = draft.findIndex(trip => trip.id === action.tripId);

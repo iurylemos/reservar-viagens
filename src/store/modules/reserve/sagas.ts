@@ -1,10 +1,12 @@
 import { AxiosResponse } from 'axios';
 import { call, put, all, takeLatest, select } from 'redux-saga/effects';
 import { api } from '../../../services/api_service';
-import { addReserveSuccess, updateReserve } from './actions';
+import { addReserveSuccess, updateReserveSuccess } from './actions';
 
 type Params = {
-    tripId: number
+    tripId: number;
+    id: number;
+    amount: number;
 }
 
 interface TripSaga {
@@ -35,7 +37,7 @@ function* addToReserve({ tripId }: Params) {
 
         if (tripExist) {
             const amount = tripExist.amount + 1;
-            yield put(updateReserve(tripExist.id, amount));
+            yield put(updateReserveSuccess(tripExist.id, amount));
         } else {
             const response: AxiosResponse = yield call(api.get, `trips/${tripId}`);
 
@@ -51,6 +53,23 @@ function* addToReserve({ tripId }: Params) {
     }
 }
 
+function* updateToReserve({ tripId, amount }: Params) {
+    console.log("amount", tripId)
+    if (amount <= 0) return;
+
+    const myStock: AxiosResponse = yield call(api.get, `/stock/${tripId}`);
+
+    const stockAmount = myStock.data.amount;
+
+    if (amount > stockAmount) {
+        alert('Quantidade máxima antigida');
+        return;
+    }
+
+    yield put(updateReserveSuccess(tripId, amount));
+}
+
 export default all([
-    takeLatest('ADD_RESERVE_REQUEST' as any, addToReserve)
+    takeLatest('ADD_RESERVE_REQUEST' as any, addToReserve),
+    takeLatest('UPDATE_RESERVE_REQUEST' as any, updateToReserve)
 ]);

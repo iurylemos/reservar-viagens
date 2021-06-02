@@ -2,13 +2,13 @@
 
 Projeto criado para simulação de um usuário que deseja viajar, e está fazendo a reserva através dessa interface.
 
-## Técnologias utilizadas:
+## Libs & Techs utilizadas:
 
 - [x] Redux
 - [x] Typescript
 - [ ] Jest
 - [x] Styled Components
-- [ ] Redux Saga
+- [x] Redux Saga
 - [x] SWR
 - [x] Styled Icons
 - [x] Immer
