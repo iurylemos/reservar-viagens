@@ -33,7 +33,6 @@ const Home: React.FC = () => {
     }
 
     function handleAdd(trip: Viagem): void {
-        console.log("TRIP?", trip)
         dispatch(addReserveRequest(trip.id));
     }
 
@@ -50,7 +49,7 @@ const Home: React.FC = () => {
                                 <WrapperIcon>
                                     <FlightLock />
                                 </WrapperIcon>
-                                <span>SOLICITAR RESERVA</span>
+                                <span data-testid="text-button">SOLICITAR RESERVA</span>
                             </Button>
                         </Item>
                     ))
